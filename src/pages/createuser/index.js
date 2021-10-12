@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Background from 'components/common/Auth/Background';
 import CreateUser from './CreateUser';
+import CreateUserComplate from './CreateUserComplate';
 
 // images
-import backgroundimg from 'images/background/back.svg';
+import backgroundimg from 'images/Auth/background/back.svg';
 
 const Index = () => {
+  const [pageNum, setpageNum] = useState(0);
+
   return (
     <Background src={backgroundimg}>
-      <CreateUser />
+      {pageNum === 0 && <CreateUser />}
+      {pageNum === 1 && <CreateUserComplate />}
     </Background>
   );
 };

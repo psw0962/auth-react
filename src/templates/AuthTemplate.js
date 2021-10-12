@@ -29,7 +29,6 @@ const HeaderWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 114px;
-  /* padding: 35px 135px; */
   background-color: #ea002b;
 `;
 
@@ -38,7 +37,6 @@ const ContentWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* padding: 36px; */
   background-color: #fff;
 
   border: 1px solid #e4e4e4;

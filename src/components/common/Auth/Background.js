@@ -5,7 +5,7 @@ const Background = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-image: url(${(props) => props.src});
   background-position: right bottom;
   background-repeat: no-repeat;

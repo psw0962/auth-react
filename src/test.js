@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import https from 'https';
 
 const TestContainer = () => {
   const test = async () => {
@@ -28,6 +29,9 @@ const TestContainer = () => {
             url: 'https://proxy.gdisso.skdy.co.kr/nsso-authweb/nacookiemanage.do',
             method: 'POST',
             data: formData,
+            httpsAgent: new https.Agent({
+              rejectUnauthorized: false,
+            }),
           })
         );
     } catch (e) {

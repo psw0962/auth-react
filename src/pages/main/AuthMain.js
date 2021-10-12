@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 // components
 import * as Font from 'components/common/Auth/Font';
 import { AuthTemplate } from 'templates';
 import { Container } from 'components/common/Auth/Container';
 
-const AuthMain = () => {
+const AuthMain = (props) => {
+  const history = useHistory();
+
   return (
     <Container>
       <AuthTemplate>
@@ -17,24 +20,41 @@ const AuthMain = () => {
           <br /> 로그인 방식을 선택하세요.
         </FontSize15>
 
-        <Button>
-          <img alt="userauth" src={require('images/loginmain/userauth.svg').default} />
+        <Button onClick={() => props.setPageNum(0)}>
+          <img
+            alt="userauth"
+            src={require('images/Auth/loginmain/userauth.svg').default}
+          />
           <FontSize20>사용자 인증</FontSize20>
         </Button>
 
-        <Button style={{ marginTop: 20 }}>
-          <img alt="ID/PW" src={require('images/loginmain/idpw.svg').default} />
+        <Button
+          onClick={() => history.push('/login')}
+          style={{ marginTop: 20 }}
+        >
+          <img
+            alt="ID/PW"
+            src={require('images/Auth/loginmain/idpw.svg').default}
+          />
           <FontSize20>ID/PW 로그인</FontSize20>
         </Button>
 
         <LineWrapper>
-          <Line src={require('images/loginmain/line.svg').default} />
-          <LineText style={{ margin: '0px 4px 0px 4px' }}>처음 방문 이신가요?</LineText>
-          <Line src={require('images/loginmain/line.svg').default} />
+          <Line src={require('images/Auth/loginmain/line.svg').default} />
+          <LineText style={{ margin: '0px 4px 0px 4px' }}>
+            처음 방문 이신가요?
+          </LineText>
+          <Line src={require('images/Auth/loginmain/line.svg').default} />
         </LineWrapper>
 
-        <Button style={{ marginBottom: 36 }}>
-          <img alt="createuser" src={require('images/loginmain/createuser.svg').default} />
+        <Button
+          onClick={() => history.push('/createuser')}
+          style={{ marginBottom: 36 }}
+        >
+          <img
+            alt="createuser"
+            src={require('images/Auth/loginmain/createuser.svg').default}
+          />
           <FontSize20>사용 신청</FontSize20>
         </Button>
       </AuthTemplate>
@@ -61,7 +81,7 @@ const FontSize20 = styled(Font.FontSize20)`
 `;
 
 const FontSize15 = styled(Font.FontSize15)`
-  margin: 10px 0px 30px 0px;
+  margin: 10px 0px 36px 0px;
 
   font-weight: normal;
   line-height: 21px;
@@ -82,6 +102,11 @@ const Button = styled.span`
   border: 1px solid #e4e4e4;
   box-sizing: border-box;
   border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid #727172;
+  }
 `;
 
 const LineWrapper = styled.div`

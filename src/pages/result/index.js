@@ -1,8 +1,6 @@
 import React from 'react';
 import Background from 'components/common/Auth/Background';
-import Login from './Login';
-
-// import Test from 'test.js';
+import Result from './Result';
 
 // images
 import backgroundimg from 'images/Auth/background/back.svg';
@@ -10,8 +8,7 @@ import backgroundimg from 'images/Auth/background/back.svg';
 const Index = () => {
   return (
     <Background src={backgroundimg}>
-      <Login />
-      {/* <Test /> */}
+      <Result />
     </Background>
   );
 };
