@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
@@ -8,25 +8,19 @@ import { AuthTemplate } from 'templates';
 import { AuthInput } from 'components/common/Auth/Input';
 import { Container } from 'components/common/Auth/Container';
 
-const CreateUser = () => {
+// utils
+import * as Validations from 'utils/Validations';
+
+const CreateUser = (props) => {
   const history = useHistory();
 
-  const [email, setEmail] = useState('');
-  const [pw, setPw] = useState('');
-  const [emailWarning, setEmailWarning] = useState(false);
-  const [signedUpUserWarning, setSignedUpUserWarning] = useState(false);
-
-  // 유효성 검사
-  const InvalidHandler = (value) => {
-    // 정규표현식
-    const emailValidation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-
-    if (!emailValidation.test(value)) {
-      setEmailWarning(true);
-    } else {
-      setEmailWarning(false);
-    }
-  };
+  const { email, setEmail } = props;
+  const { pw, setPw } = props;
+  const { emailInvalid, setEmailInvalid } = props;
+  const { signedUpUserInvalid, setSignedUpUserInvalid } = props;
+  const { checkId, setCheckId } = props;
+  const { checkPw, setCheckPw } = props;
+  const { firstVisit, setFirstVisit } = props;
 
   return (
     <Container>
@@ -49,14 +43,19 @@ const CreateUser = () => {
             placeholder="example@sk.com"
             onChange={(e) => {
               setEmail(e.target.value);
-              InvalidHandler(e.target.value);
+              Validations.EmailInvalidHandler(e.target.value, setEmailInvalid);
             }}
           />
         </Wrapper>
 
-        <WarningWrapper active={emailWarning}>
+        <WarningWrapper active={emailInvalid}>
           <img alt="warning" src={require('images/Auth/warning.svg').default} />
           <FontSize13>올바른 이메일 형식이 아닙니다.</FontSize13>
+        </WarningWrapper>
+
+        <WarningWrapper active={checkId}>
+          <img alt="warning" src={require('images/Auth/warning.svg').default} />
+          <FontSize13>로그인 ID를 입력해 주세요.</FontSize13>
         </WarningWrapper>
 
         <Wrapper style={{ marginTop: 21 }}>
@@ -70,7 +69,21 @@ const CreateUser = () => {
           />
         </Wrapper>
 
-        <WarningWrapper active={signedUpUserWarning}>
+        <WarningWrapper active={firstVisit}>
+          <img alt="warning" src={require('images/Auth/warning.svg').default} />
+          <FontSize13>
+            사이트를 처음 방문하는 사용자는
+            <br />
+            비밀번호를 재설정 해야 이용이 가능합니다.
+          </FontSize13>
+        </WarningWrapper>
+
+        <WarningWrapper active={checkPw}>
+          <img alt="warning" src={require('images/Auth/warning.svg').default} />
+          <FontSize13>비밀번호를 입력해주세요.</FontSize13>
+        </WarningWrapper>
+
+        <WarningWrapper active={signedUpUserInvalid}>
           <img alt="warning" src={require('images/Auth/warning.svg').default} />
           <FontSize13>이미 가입한 계정 입니다.</FontSize13>
         </WarningWrapper>

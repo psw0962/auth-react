@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
@@ -8,42 +8,24 @@ import { AuthTemplate } from 'templates';
 import { AuthInput } from 'components/common/Auth/Input';
 import { Container } from 'components/common/Auth/Container';
 
-const ResetPw = () => {
+// utils
+import * as Validations from 'utils/Validations';
+
+const ResetPw = (props) => {
   const history = useHistory();
 
-  const [email, setEmail] = useState('');
-  const [certifiNum, setCertifiNum] = useState('');
+  const { pw, setPw } = props;
+  const { pwConfirm, setPwConfirm } = props;
+  const { pwInvalid, setPwInvalid } = props;
+  const { pwConfirmInvalid, setPwConfirmInvalid } = props;
 
-  const [sendCodeWarning, setSendCodeWarning] = useState(false);
-  const [complateWarning, setComplateWarning] = useState(false);
-
-  const [sendCodeBtn, setSendCodeBtn] = useState(false);
-  const [complateBtn, setComplateBtn] = useState(false);
-
-  const InvalidHandler = (type, value) => {
-    const emailValidation = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-
-    switch (type) {
-      case 'email':
-        if (!emailValidation.test(value)) {
-          setSendCodeWarning(true);
-          setSendCodeBtn(false);
-        } else {
-          setSendCodeWarning(false);
-          setSendCodeBtn(true);
-        }
-        break;
-
-      case 'certifinum':
-        if (value !== '') {
-          setComplateBtn(true);
-        } else {
-          setComplateBtn(false);
-        }
-        break;
-      //no default
+  useEffect(() => {
+    if (pwConfirm !== '' && pw !== pwConfirm) {
+      setPwConfirmInvalid(true);
+    } else {
+      setPwConfirmInvalid(false);
     }
-  };
+  }, [pw, pwConfirm]);
 
   return (
     <Container>
@@ -61,48 +43,43 @@ const ResetPw = () => {
         </FontSize15>
 
         <Wrapper>
-          <FontSize15 style={{ fontWeight: 'bold' }}>
-            본인 확인 (이메일)
-          </FontSize15>
+          <FontSize15 style={{ fontWeight: 'bold' }}>새 비밀번호</FontSize15>
 
           <AuthInput
+            placeholder="새 비밀번호를 입력하세요."
             onChange={(e) => {
-              setEmail(e.target.value);
-              InvalidHandler('email', e.target.value);
+              setPw(e.target.value);
+              Validations.PwInvalidHandler(e.target.value, setPwInvalid);
             }}
           />
         </Wrapper>
 
-        <WarningWrapper active={sendCodeWarning}>
-          <img alt="warning" src={require('images/Auth/warning.svg').default} />
-          <FontSize13>올바른 이메일 형식이 아닙니다.</FontSize13>
-        </WarningWrapper>
-
-        <SendCodeBtn active={sendCodeBtn}>코드 보내기</SendCodeBtn>
-
-        <Line />
-
-        <Wrapper>
-          <FontSize15 style={{ fontWeight: 'bold' }}>인증번호</FontSize15>
-
-          <AuthInput
-            onChange={(e) => {
-              setCertifiNum(e.target.value);
-              InvalidHandler('certifinum', e.target.value);
-            }}
-          />
-        </Wrapper>
-
-        <WarningWrapper active={complateWarning}>
+        <WarningWrapper active={pwInvalid}>
           <img alt="warning" src={require('images/Auth/warning.svg').default} />
           <FontSize13>
-            인증에 실패했습니다.
+            비밀번호는 영문, 숫자, 특수문자 포함
             <br />
-            인증번호를 확인해주시기 바랍니다.
+            8자 이상 이어야 합니다.
           </FontSize13>
         </WarningWrapper>
 
-        <ComplateBtn active={complateBtn}>확인</ComplateBtn>
+        <Wrapper style={{ marginTop: 20 }}>
+          <FontSize15 style={{ fontWeight: 'bold' }}>비밀번호 확인</FontSize15>
+
+          <AuthInput
+            placeholder="같은 비밀번호를 입력하세요."
+            onChange={(e) => {
+              setPwConfirm(e.target.value);
+            }}
+          />
+        </Wrapper>
+
+        <WarningWrapper active={pwConfirmInvalid}>
+          <img alt="warning" src={require('images/Auth/warning.svg').default} />
+          <FontSize13>비밀번호가 불일치 합니다.</FontSize13>
+        </WarningWrapper>
+
+        <ComplateBtn>확인</ComplateBtn>
       </AuthTemplate>
     </Container>
   );
@@ -120,7 +97,6 @@ const FontSize22 = styled(Font.FontSize22)`
   color: #231815;
 `;
 
-// Main
 const FontSize15 = styled(Font.FontSize15)`
   color: #727172;
   line-height: 21px;
@@ -132,6 +108,7 @@ const FontSize13 = styled(Font.FontSize13)`
   color: #ff619a;
 `;
 
+// Main
 const Wrapper = styled.div`
   width: 85%;
 `;
@@ -145,29 +122,12 @@ const WarningWrapper = styled.div`
   margin-top: 19px;
 `;
 
-const SendCodeBtn = styled.button`
-  width: 103px;
-  height: 36px;
-  margin-top: 25px;
-
-  background: ${(props) => (props.active ? '#EA002B' : '#f5f5f5')};
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 21px;
-  text-align: center;
-  color: ${(props) => (props.active ? '#fff' : '#b5b5b6')};
-`;
-
 const ComplateBtn = styled.button`
   width: 58px;
   height: 36px;
   margin: 25px 0px 36px 0px;
 
-  background: ${(props) => (props.active ? '#EA002B' : '#f5f5f5')};
+  background: #ea002b;
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -176,13 +136,5 @@ const ComplateBtn = styled.button`
   font-size: 15px;
   line-height: 21px;
   text-align: center;
-  color: ${(props) => (props.active ? '#fff' : '#b5b5b6')};
-`;
-
-const Line = styled.div`
-  width: 85%;
-  height: 0px;
-  margin: 36px 0px 36px 0px;
-
-  border: 1px solid #e4e4e4;
+  color: #ffffff;
 `;

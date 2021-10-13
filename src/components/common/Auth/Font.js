@@ -5,7 +5,7 @@ export const FontSize22 = styled.p`
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : 300)};
   text-align: ${(props) => (props.textAlign ? props.textAlign : 'left')};
   line-height: ${(props) => (props.lineHeight ? props.lineHeight : 0)};
-  font-size: 1.375rem;
+  font-size: 2.2rem;
 
   /* @media (min-width: 0px) and (max-width: 768px) {
   }
@@ -20,7 +20,7 @@ export const FontSize20 = styled.p`
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : 300)};
   text-align: ${(props) => (props.textAlign ? props.textAlign : 'left')};
   line-height: ${(props) => (props.lineHeight ? props.lineHeight : 0)};
-  font-size: 1.25rem;
+  font-size: 2rem;
 
   /* @media (min-width: 0px) and (max-width: 768px) {
   }
@@ -35,7 +35,7 @@ export const FontSize15 = styled.p`
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : 300)};
   text-align: ${(props) => (props.textAlign ? props.textAlign : 'left')};
   line-height: ${(props) => (props.lineHeight ? props.lineHeight : 0)};
-  font-size: 0.938rem;
+  font-size: 1.5rem;
 
   /* @media (min-width: 0px) and (max-width: 768px) {
   }
@@ -50,7 +50,7 @@ export const FontSize13 = styled.p`
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : 300)};
   text-align: ${(props) => (props.textAlign ? props.textAlign : 'left')};
   line-height: ${(props) => (props.lineHeight ? props.lineHeight : 0)};
-  font-size: 0.813rem;
+  font-size: 1.3rem;
 
   /* @media (min-width: 0px) and (max-width: 768px) {
   }

@@ -21,7 +21,9 @@ const CreateUserComplate = () => {
         </FontSize15>
 
         <FontSize15>관리자 이메일</FontSize15>
-        <FontSize15 style={{ color: '#EA002B' }}>admin@sk.com</FontSize15>
+        <FontSize15 style={{ color: '#EA002B', textDecoration: 'underline' }}>
+          admin@sk.com
+        </FontSize15>
 
         <ComplateImg
           alt="complate"
@@ -117,4 +119,5 @@ const ComplateBtn = styled.button`
   background: #ea002b;
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 `;

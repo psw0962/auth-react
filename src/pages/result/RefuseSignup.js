@@ -1,43 +1,58 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 
 // components
 import * as Font from 'components/common/Auth/Font';
 import { AuthTemplate } from 'templates';
 import { Container } from 'components/common/Auth/Container';
 
-const Result = () => {
+const RefuseSignup = (setPageNum) => {
+  const history = useHistory();
+
   return (
     <Container>
       <AuthTemplate>
-        <FontSize22>사용승인 대기중</FontSize22>
+        <FontSize22>가입 거부</FontSize22>
 
         <FontSize15
           style={{ margin: '10px 0px 36px 0px', textAlign: 'center' }}
         >
-          사용신청 대기중입니다.
+          사용신청이 거절 되었습니다.
           <br />
-          관리자가 사용 승인을 완료할때까지
+          문의사항이 있으시면 이메일로
           <br />
-          기다려 주세요.
+          관리자에게 문의해 주세요.
         </FontSize15>
 
         <FontSize15>관리자 이메일</FontSize15>
-        <FontSize15 style={{ color: '#EA002B' }}>admin@sk.com</FontSize15>
+        <FontSize15 style={{ color: '#EA002B', textDecoration: 'underline' }}>
+          admin@sk.com
+        </FontSize15>
 
-        <ResultImg src={require('images/Auth/result/hourglass.svg').default} />
+        <ResultImg src={require('images/Auth/result/noentry.svg').default} />
       </AuthTemplate>
 
       <FooterWrapper>
         <FontSize15>처음 방문 이신가요?</FontSize15>
-        <FontSize15 style={{ color: '#EA002B', cursor: 'pointer' }}>
+        <FontSize15
+          onClick={() => {
+            history.push('/createuser');
+          }}
+          style={{ color: '#EA002B', cursor: 'pointer' }}
+        >
           사용신청
         </FontSize15>
       </FooterWrapper>
 
       <FooterWrapper style={{ marginTop: 6 }}>
         <FontSize15>비밀번호가 생각나지 않으세요?</FontSize15>
-        <FontSize15 style={{ color: '#EA002B', cursor: 'pointer' }}>
+        <FontSize15
+          onClick={() => {
+            history.push('/resetpw');
+          }}
+          style={{ color: '#EA002B', cursor: 'pointer' }}
+        >
           비밀번호 재설정
         </FontSize15>
       </FooterWrapper>
@@ -45,7 +60,7 @@ const Result = () => {
   );
 };
 
-export default Result;
+export default RefuseSignup;
 
 // Font
 const FontSize22 = styled(Font.FontSize22)`
