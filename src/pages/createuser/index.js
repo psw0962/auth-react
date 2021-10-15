@@ -4,7 +4,7 @@ import CreateUser from './CreateUser';
 import CreateUserComplate from './CreateUserComplate';
 
 // images
-import backgroundimg from 'images/Auth/background/back.svg';
+import backgroundimg from 'images/Auth/background/background.png';
 
 const Index = () => {
   // 페이지 인덱스

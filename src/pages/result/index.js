@@ -10,7 +10,7 @@ import SignedupUser from './SignedupUser';
 import ImpossibleUser from './ImpossibleUser';
 
 // images
-import backgroundimg from 'images/Auth/background/back.svg';
+import backgroundimg from 'images/Auth/background/background.png';
 
 const Index = () => {
   const [pageNum, setPageNum] = useState(0);

@@ -4,7 +4,7 @@ import Login from './Login';
 import CreateUserModal from './CreateUserModal';
 
 // images
-import backgroundimg from 'images/Auth/background/back.svg';
+import backgroundimg from 'images/Auth/background/background.png';
 
 const Index = () => {
   // 페이지 인덱스
